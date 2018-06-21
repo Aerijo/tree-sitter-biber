@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "tree_sitter_bibtex_binding",
+      "target_name": "tree_sitter_biber_binding",
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
         "src"
