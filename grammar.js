@@ -8,14 +8,30 @@ function ignoreCase(str) {
 }
 
 /*
-  Adapted from the PEG grammar given here https://github.com/aclements/biblib
+  Adapted from the language description given here https://github.com/ambs/Text-BibTeX/blob/master/btparse/doc/bt_language.pod
 
-  whitespace is ignored by default (tree-sitter-cli)
-    - it will be recognised if the `extras` property is added though
+  - name is a catch-all token used for entry types, citation keys, field names, and macro names;
+  - We will call it "identifier", given by [a-z0-9\!\$\&\*\+\-\.\/\:\;\<\>\?\[\]\^\_\`\|]+
+  - NOTE: numbers are allowed in the first character. NOTE2: no they aren't.
+  - () only string delimiters in @comment.
+  - " inside of strings are ignored
+
+  - in @comment,
+    - if the outer delims are brace then only braces must balance.
+    - If the open delim is '(', then all () must balance. Separately, all {} must also balance (and never have too many } at any point in time).
+      - I don't think this can be done accurately, without any external code. So We'll only look to balance ()
+        in this specific case.
+
+
+  - In some cases, it might be preferable to be more lenient with the syntax, so the
+    highlighting does not break when typing. However, for now we will see how it
+    handles errors. If it does it well, we can stick to the more accurate syntax here.
+
+  - Parser:  https://github.com/ambs/Text-BibTeX/blob/master/btparse/src/bibtex.g
 */
 
 module.exports = grammar({
-  name: "bibtex",
+  name: "biber",
 
   extras: $ => [/[\s\n\t]/, $.comment],
 
@@ -23,18 +39,20 @@ module.exports = grammar({
     program: $ => repeat(choice($._command_or_entry, $.comment, $.junk)),
 
     comment: $ => token(seq('%', /.*/)),
-    junk: $ => /[^%@\s\n\t][^%@]*/,
+    junk: $ => /[^%@\s\n\t][^%@]*/, // biber junk == bibtex comment
 
     _command_or_entry: $ => choice(
       $.comment_command,
       $.preamble_command,
       $.string_command,
+      // $.alias_command, // the author seems to think these will eventually be a thing
+      // $.modify_command,
       $.entry
     ),
 
-    comment_command: $ => seq('@', ignoreCase("comment"), choice(
-      seq('{', $._balanced, '}'),
-      seq('(', $._paren_balanced, ')')
+    comment_command: $ => seq('@', ignoreCase("comment"), choice( // contents is considered a string
+      seq('{', $._brace_balanced, '}'), // only {} need to be balanced
+      seq('(', $._paren_balanced, ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
     )),
 
     string_command: $ => seq('@', ignoreCase("string"), choice(
@@ -47,19 +65,23 @@ module.exports = grammar({
       seq('(', $.value, ')')
     )),
 
-    entry: $ => seq('@', $.identifier, choice(
-      seq('{', $.key_b, repeat(seq(',', $.field)), optional(','), '}'),
-      seq('(', $.key_p, repeat(seq(',', $.field)), optional(','), ')')
+    // NOTE: The key is parsed by biber as a number if possible, but later converted to a name anyway when processed.
+    // So the net effect is we can just look for a name as the key, and be done with it (but here we still call it key).
+    // NOTE: @BOOK{me,} is bare minimum for an entry. It must have both a key and a comma. Two commas in a row is disallowed.
+    // This grammar allows the comma to be omitted,
+    entry: $ => seq('@', $.name, choice(
+      seq('{', $.key, repeat(seq(',', $.field)), optional(','), '}'),
+      seq('(', $.key, repeat(seq(',', $.field)), optional(','), ')')
     )),
 
-    key_b: $ => /[^,\s\t\n\}%]*/, // "braces key" / can be empty (will not throw error) but cannot be referenced this way
-    key_p: $ => /[^,\s\t\n%]*/, // "parentheses key" // the ) is actually allowed
+    key:  $ => /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]+/, // empty keys throw errors (as opposed to bibtex). Also more restricted range.
+    name: $ => /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]+/, // all of unicode seems to be supported (when using xelatex or equiv. unicode support)
 
     field: $ => seq($.identifier, '=', $.value),
 
-    identifier: $ => { // `scan_identifier` [2210]
-      const first = /[\!\$\&\*\+\-\.\/\:\;<>\?\@\[\]\\\^\_\`\|\~a-zA-Z]/; // https://regex101.com/r/fAkBEf/1
-      const later = /[\!\$\&\*\+\-\.\/\:\;<>\?\@\[\]\\\^\_\`\|\~a-zA-Z0-9]/; // basically all visible ASCII except: "#%'(),={}
+    identifier: $ => { // name, but cannot start with digit
+      const first = /[^0-9\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]/;
+      const later = /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]/;
       return token(seq(first, repeat(later)));
     },
 
@@ -68,28 +90,28 @@ module.exports = grammar({
     token: $ => choice(
       $.string, // named as such by the source code
       $.nonnegative_integer,
-      $.identifier // also known as "macro name"
+      $.identifier // also known as NAME / basically same, just cannot start with digit
     ),
 
     nonnegative_integer: $ => /[0-9]+/,
 
     string: $ => choice(
-      seq("{", repeat($._balanced), '}'),
+      seq("{", repeat($._brace_balanced), '}'),
       seq('"', repeat($._quote_balanced), '"')
     ),
 
-    _balanced: $ => choice(
-      seq('{', repeat($._balanced), '}'),
+    _brace_balanced: $ => choice(
+      seq('{', repeat($._brace_balanced), '}'),
       $._brace_text
     ),
 
     _quote_balanced: $ => choice(
-      seq('{', repeat($._balanced), '}'),
+      seq('{', repeat($._brace_balanced), '}'),
       $._quote_text
     ),
 
     _paren_balanced: $ => choice(
-      seq('{', repeat($._balanced), '}'),
+      seq('(', repeat($._paren_balanced), ')'),
       $._paren_text
     ),
 
@@ -97,6 +119,6 @@ module.exports = grammar({
 
     _quote_text: $ => /[^\"\{\}]+/,
 
-    _paren_text: $ => /[^\(\)\{\}]+/ // } will throw "too many }"
+    _paren_text: $ => /[^\(\)]+/
   }
 });

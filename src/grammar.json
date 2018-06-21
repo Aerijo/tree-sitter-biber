@@ -1,5 +1,5 @@
 {
-  "name": "bibtex",
+  "name": "biber",
   "rules": {
     "program": {
       "type": "REPEAT",
@@ -85,7 +85,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_balanced"
+                  "name": "_brace_balanced"
                 },
                 {
                   "type": "STRING",
@@ -243,7 +243,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "name"
         },
         {
           "type": "CHOICE",
@@ -257,7 +257,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "key_b"
+                  "name": "key"
                 },
                 {
                   "type": "REPEAT",
@@ -302,7 +302,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "key_p"
+                  "name": "key"
                 },
                 {
                   "type": "REPEAT",
@@ -342,13 +342,13 @@
         }
       ]
     },
-    "key_b": {
+    "key": {
       "type": "PATTERN",
-      "value": "[^,\\s\\t\\n\\}%]*"
+      "value": "[^\\\"\\#%'\\(\\)\\,\\=\\{\\}@\\\\\\~\\s\\t\\n]+"
     },
-    "key_p": {
+    "name": {
       "type": "PATTERN",
-      "value": "[^,\\s\\t\\n%]*"
+      "value": "[^\\\"\\#%'\\(\\)\\,\\=\\{\\}@\\\\\\~\\s\\t\\n]+"
     },
     "field": {
       "type": "SEQ",
@@ -374,13 +374,13 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[\\!\\$\\&\\*\\+\\-\\.\\/\\:\\;<>\\?\\@\\[\\]\\\\\\^\\_\\`\\|\\~a-zA-Z]"
+            "value": "[^0-9\\\"\\#%'\\(\\)\\,\\=\\{\\}@\\\\\\~\\s\\t\\n]"
           },
           {
             "type": "REPEAT",
             "content": {
               "type": "PATTERN",
-              "value": "[\\!\\$\\&\\*\\+\\-\\.\\/\\:\\;<>\\?\\@\\[\\]\\\\\\^\\_\\`\\|\\~a-zA-Z0-9]"
+              "value": "[^\\\"\\#%'\\(\\)\\,\\=\\{\\}@\\\\\\~\\s\\t\\n]"
             }
           }
         ]
@@ -446,7 +446,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "SYMBOL",
-                "name": "_balanced"
+                "name": "_brace_balanced"
               }
             },
             {
@@ -477,7 +477,7 @@
         }
       ]
     },
-    "_balanced": {
+    "_brace_balanced": {
       "type": "CHOICE",
       "members": [
         {
@@ -491,7 +491,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "SYMBOL",
-                "name": "_balanced"
+                "name": "_brace_balanced"
               }
             },
             {
@@ -520,7 +520,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "SYMBOL",
-                "name": "_balanced"
+                "name": "_brace_balanced"
               }
             },
             {
@@ -543,18 +543,18 @@
           "members": [
             {
               "type": "STRING",
-              "value": "{"
+              "value": "("
             },
             {
               "type": "REPEAT",
               "content": {
                 "type": "SYMBOL",
-                "name": "_balanced"
+                "name": "_paren_balanced"
               }
             },
             {
               "type": "STRING",
-              "value": "}"
+              "value": ")"
             }
           ]
         },
@@ -574,7 +574,7 @@
     },
     "_paren_text": {
       "type": "PATTERN",
-      "value": "[^\\(\\)\\{\\}]+"
+      "value": "[^\\(\\)]+"
     }
   },
   "extras": [

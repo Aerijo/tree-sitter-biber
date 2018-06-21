@@ -44,3 +44,6 @@ Similarly,
 The extra comma is necessary for `biber`, and the key name is `Car`. For `bibtex`, the extra comma throws a "missing a field" error, but the key is completely valid (though good luck referencing it in the document).
 
 Note that special TeX characters inside of entries, besides ones `biber` (and `bibtex`) actually looks for, are effectively ignored. So it is not really possible to accurately parse the contents of a string, nor desirable for a faithful parser. If you have an unescaped `%` in the string, it will break when the citation is used in a document (but is completely valid `biber` syntax).
+
+This answer also does a good job of explaining what the actual terms `bibtex`, `biber`, `natbib`, and `biblatex` actually refer to.
+https://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib

@@ -4,7 +4,7 @@
 
 using namespace v8;
 
-extern "C" TSLanguage * tree_sitter_bibtex();
+extern "C" TSLanguage * tree_sitter_biber();
 
 namespace {
 
@@ -17,12 +17,12 @@ void Init(Handle<Object> exports, Handle<Object> module) {
 
   Local<Function> constructor = tpl->GetFunction();
   Local<Object> instance = constructor->NewInstance(Nan::GetCurrentContext()).ToLocalChecked();
-  Nan::SetInternalFieldPointer(instance, 0, tree_sitter_bibtex());
+  Nan::SetInternalFieldPointer(instance, 0, tree_sitter_biber());
 
-  instance->Set(Nan::New("name").ToLocalChecked(), Nan::New("bibtex").ToLocalChecked());
+  instance->Set(Nan::New("name").ToLocalChecked(), Nan::New("biber").ToLocalChecked());
   module->Set(Nan::New("exports").ToLocalChecked(), instance);
 }
 
-NODE_MODULE(tree_sitter_bibtex_binding, Init)
+NODE_MODULE(tree_sitter_biber_binding, Init)
 
 }  // namespace

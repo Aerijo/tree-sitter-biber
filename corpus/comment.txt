@@ -31,12 +31,10 @@ Command
 
 @comment{this is a comment}
 @comment(parentheses can be used)
-@comment the delims are important
 
 ---
 
 (program
   (comment_command)
   (comment_command)
-  (ERROR (UNEXPECTED 't'))
 )

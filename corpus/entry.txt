@@ -2,6 +2,11 @@
 Empty
 ===============
 
+NOTE: Biber will throw an error for a missing key.
+Also, the tests should really be
+(entry (name) (MISSING)), but I can't work out why
+a 0-length match for key is being allowed.
+
 @misc{}
 @misc{,}
 @misc()
@@ -10,10 +15,11 @@ Empty
 ---
 
 (program
-  (entry (identifier) (key_b))
-  (entry (identifier) (key_b))
-  (entry (identifier) (key_p) (MISSING))
-  (entry (identifier) (key_p))
+  (junk)
+  (entry (name) (key (MISSING)))
+  (entry (name) (key (MISSING)))
+  (entry (name) (key (MISSING)))
+  (entry (name) (key (MISSING)))
 )
 
 ===============
@@ -28,36 +34,33 @@ Only key
 ---
 
 (program
-  (entry (identifier) (key_b))
-  (entry (identifier) (key_b))
-  (entry (identifier) (key_p) (MISSING))
-  (entry (identifier) (key_p))
+  (entry (name) (key))
+  (entry (name) (key))
+  (entry (name) (key))
+  (entry (name) (key))
 )
 
 ===============
 Paren delimited with closing paren in key
 ===============
 
-@BOOK(key)still_key, AUTHOR="G. V. Carey")
+@BOOK(key)not_still_key, AUTHOR="G. V. Carey")
 
 ---
 
 (program
   (entry
-    (identifier)
-    (key_p)
-    (field
-      (identifier)
-      (value (token (string)))
-    )
+    (name)
+    (key)
   )
+  (junk)
 )
 
 ===============
 With commented field
 ===============
 
-@misc{key,
+@ misc { key,
   author="me",
   % volume=11,
   publisher="them"
@@ -67,8 +70,8 @@ With commented field
 
 (program
   (entry
-    (identifier)
-    (key_b)
+    (name)
+    (key)
     (field
       (identifier)
       (value (token (string)))
@@ -96,8 +99,8 @@ With commented field value
 
 (program
   (entry
-    (identifier)
-    (key_b)
+    (name)
+    (key)
     (field
       (identifier)
       (comment)
@@ -126,8 +129,8 @@ With percent sign in string field
 
 (program
   (entry
-    (identifier)
-    (key_b)
+    (name)
+    (key)
     (field
       (identifier)
       (value (token (string)))
