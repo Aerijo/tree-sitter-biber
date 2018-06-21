@@ -1,0 +1,32 @@
+{
+  "name": "tree-sitter-biber",
+  "version": "0.0.7",
+  "description": "Tree sitter grammar for biber",
+  "main": "index.js",
+  "repository": "https://github.com/Aerijo/tree-sitter-biber",
+  "bugs": "https://github.com/Aerijo/tree-sitter-biber/issues",
+  "keywords": [
+    "biber",
+    "grammar",
+    "syntax",
+    "highlighting",
+    "parser",
+    "lexer",
+    "tree-sitter"
+  ],
+  "author": "Benjamin Gray",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.4.0"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.6.0",
+    "tree-sitter": "^0.12.8",
+    "tree-sitter-cli": "^0.12.5"
+  },
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "parse": "node scripts/parse.js",
+    "test": "tree-sitter test && tree-sitter parse examples --quiet --time"
+  }
+}

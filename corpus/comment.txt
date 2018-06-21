@@ -1,0 +1,42 @@
+===============
+Line
+===============
+
+% hello world
+% foo
+
+---
+
+(program
+  (comment)
+  (comment)
+)
+
+===============
+Junk
+===============
+
+hello world
+this is all considered
+junk (because no percent
+sign to indicate comment)
+
+---
+
+(program (junk))
+
+===============
+Command
+===============
+
+@comment{this is a comment}
+@comment(parentheses can be used)
+@comment the delims are important
+
+---
+
+(program
+  (comment_command)
+  (comment_command)
+  (ERROR (UNEXPECTED 't'))
+)

@@ -1,0 +1,136 @@
+===============
+Empty
+===============
+
+@misc{}
+@misc{,}
+@misc()
+@misc(,)
+
+---
+
+(program
+  (entry (identifier) (key_b))
+  (entry (identifier) (key_b))
+  (entry (identifier) (key_p) (MISSING))
+  (entry (identifier) (key_p))
+)
+
+===============
+Only key
+===============
+
+@misc{key}
+@misc{key,}
+@misc(key)
+@misc(key,)
+
+---
+
+(program
+  (entry (identifier) (key_b))
+  (entry (identifier) (key_b))
+  (entry (identifier) (key_p) (MISSING))
+  (entry (identifier) (key_p))
+)
+
+===============
+Paren delimited with closing paren in key
+===============
+
+@BOOK(key)still_key, AUTHOR="G. V. Carey")
+
+---
+
+(program
+  (entry
+    (identifier)
+    (key_p)
+    (field
+      (identifier)
+      (value (token (string)))
+    )
+  )
+)
+
+===============
+With commented field
+===============
+
+@misc{key,
+  author="me",
+  % volume=11,
+  publisher="them"
+}
+
+---
+
+(program
+  (entry
+    (identifier)
+    (key_b)
+    (field
+      (identifier)
+      (value (token (string)))
+    )
+    (comment)
+    (field
+      (identifier)
+      (value (token (string)))
+    )
+  )
+)
+
+===============
+With commented field value
+===============
+
+@misc{key,
+  author = % "me",
+    actual_value,
+  volume=11,
+  publisher="them"
+}
+
+---
+
+(program
+  (entry
+    (identifier)
+    (key_b)
+    (field
+      (identifier)
+      (comment)
+      (value (token (identifier)))
+    )
+    (field
+      (identifier)
+      (value (token (nonnegative_integer)))
+    )
+    (field
+      (identifier)
+      (value (token (string)))
+    )
+  )
+)
+
+===============
+With percent sign in string field
+===============
+
+@misc{key,
+  author="me % not comment"
+}
+
+---
+
+(program
+  (entry
+    (identifier)
+    (key_b)
+    (field
+      (identifier)
+      (value (token (string)))
+    )
+  )
+)
