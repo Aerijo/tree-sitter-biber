@@ -84,8 +84,16 @@
                   "value": "{"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_brace_balanced"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_brace_balanced"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "STRING",
@@ -101,8 +109,16 @@
                   "value": "("
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_paren_balanced"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_paren_balanced"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "STRING",

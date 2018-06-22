@@ -11,8 +11,6 @@ function ignoreCase(str) {
   Adapted from the language description given here https://github.com/ambs/Text-BibTeX/blob/master/btparse/doc/bt_language.pod
 
   - name is a catch-all token used for entry types, citation keys, field names, and macro names;
-  - We will call it "identifier", given by [a-z0-9\!\$\&\*\+\-\.\/\:\;\<\>\?\[\]\^\_\`\|]+
-  - NOTE: numbers are allowed in the first character. NOTE2: no they aren't.
   - () only string delimiters in @comment.
   - " inside of strings are ignored
 
@@ -51,8 +49,8 @@ module.exports = grammar({
     ),
 
     comment_command: $ => seq('@', ignoreCase("comment"), choice( // contents is considered a string
-      seq('{', $._brace_balanced, '}'), // only {} need to be balanced
-      seq('(', $._paren_balanced, ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
+      seq('{', optional($._brace_balanced), '}'), // only {} need to be balanced
+      seq('(', optional($._paren_balanced), ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
     )),
 
     string_command: $ => seq('@', ignoreCase("string"), choice(
