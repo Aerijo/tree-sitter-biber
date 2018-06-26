@@ -1,4 +1,14 @@
 ===============
+Empty
+===============
+
+@string{}
+
+---
+
+(program (string_command))
+
+===============
 With number
 ===============
 

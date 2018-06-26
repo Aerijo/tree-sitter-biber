@@ -49,17 +49,17 @@ module.exports = grammar({
     ),
 
     comment_command: $ => seq('@', ignoreCase("comment"), choice( // contents is considered a string
-      seq('{', optional($._brace_balanced), '}'), // only {} need to be balanced
-      seq('(', optional($._paren_balanced), ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
+      seq('{', repeat($._brace_balanced), '}'), // only {} need to be balanced
+      seq('(', repeat($._paren_balanced), ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
     )),
 
     string_command: $ => seq('@', ignoreCase("string"), choice(
-      seq('{', $.identifier, '=', $.value, '}'),
-      seq('(', $.identifier, '=', $.value, ')')
+      seq('{', optional(seq($.identifier, '=', $.value)), '}'),
+      seq('(', optional(seq($.identifier, '=', $.value)), ')')
     )),
 
     preamble_command: $ => seq('@', ignoreCase("preamble"), choice(
-      seq('{', $.value, '}'),
+      seq('{', $.value, '}'), // contents are not optional
       seq('(', $.value, ')')
     )),
 

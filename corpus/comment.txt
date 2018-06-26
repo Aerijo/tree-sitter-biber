@@ -38,3 +38,36 @@ Command
   (comment_command)
   (comment_command)
 )
+
+===============
+Empty command
+===============
+
+@comment{}
+@comment()
+
+---
+
+(program
+  (comment_command)
+  (comment_command)
+)
+
+
+===============
+Command with nested braces
+===============
+
+@comment{ {this is a comment} }
+@comment({parentheses can be used})
+@comment{ { { { } } } { } ( ) {( )} }
+@comment( { } { } ( ) {( )} )
+
+---
+
+(program
+  (comment_command)
+  (comment_command)
+  (comment_command)
+  (comment_command)
+)
