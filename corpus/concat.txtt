@@ -1,0 +1,25 @@
+===============
+Concatenated field
+===============
+
+@article{key,
+  author="foo" # bar # 123 # {baz}
+}
+
+---
+
+(program
+  (entry
+    (name)
+    (key)
+    (field
+      (identifier)
+      (value
+        (token
+          (string))
+        (token
+          (identifier))
+        (token
+          (nonnegative_integer))
+        (token
+          (string))))))
