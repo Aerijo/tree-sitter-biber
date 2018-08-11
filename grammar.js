@@ -34,7 +34,11 @@ module.exports = grammar({
   extras: $ => [/[\s\n\t]/, $.comment],
 
   rules: {
-    program: $ => repeat(choice($._command_or_entry, $.comment, $.junk)),
+    program: $ => repeat(choice(
+      $._command_or_entry,
+      $.comment,
+      $.junk
+    )),
 
     comment: $ => token(seq('%', /.*/)),
     junk: $ => /[^%@\s\n\t][^%@]*/, // biber junk == bibtex comment
@@ -68,6 +72,7 @@ module.exports = grammar({
     // NOTE: @BOOK{me,} is bare minimum for an entry. It must have both a key and a comma. Two commas in a row is disallowed.
     // This grammar allows the comma to be omitted,
     entry: $ => seq('@', $.name, choice(
+      // seq('{', $.key, ",", optional($.fields), '}'),
       seq('{', $.key, repeat(seq(',', $.field)), optional(','), '}'),
       seq('(', $.key, repeat(seq(',', $.field)), optional(','), ')')
     )),
@@ -76,6 +81,8 @@ module.exports = grammar({
     name: $ => /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]+/, // all of unicode seems to be supported (when using xelatex or equiv. unicode support)
 
     field: $ => seq($.identifier, '=', $.value),
+
+    // fields: $ => prec.left(1, seq($.field, repeat(",", $.field), optional(","))),
 
     identifier: $ => { // name, but cannot start with digit
       const first = /[^0-9\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]/;
