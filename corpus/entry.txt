@@ -49,10 +49,7 @@ Paren delimited with closing paren in key
 ---
 
 (program
-  (entry
-    (name)
-    (key)
-  )
+  (entry (name) (key))
   (junk)
 )
 
@@ -130,6 +127,27 @@ With percent sign in string field
 (program
   (entry
     (name)
+    (key)
+    (field
+      (identifier)
+      (value (token (string)))
+    )
+  )
+)
+
+===============
+Empty entry type
+===============
+
+@{key,
+  author="me % not comment"
+}
+
+---
+
+(program
+  (entry
+    (name (MISSING))
     (key)
     (field
       (identifier)
