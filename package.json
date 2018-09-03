@@ -16,6 +16,9 @@
   ],
   "author": "Benjamin Gray",
   "license": "MIT",
+  "dependencies": {
+    "nan": "^2.11.0"
+  },
   "devDependencies": {
     "tree-sitter-cli": "^0.13.5"
   },
