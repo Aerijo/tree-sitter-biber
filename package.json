@@ -27,6 +27,7 @@
   "scripts": {
     "build": "tree-sitter generate && node-gyp build",
     "install": "prebuild-install || node-gyp rebuild",
-    "pre-build": "prebuild --all --strip --verbose"
+    "pre-build": "prebuild --all --strip --verbose",
+        "pre-build:upload": "prebuild --upload-all"
   }
 }
