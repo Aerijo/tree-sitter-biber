@@ -1,4 +1,8 @@
 # tree-sitter-biber
+
+[![Build status](https://ci.appveyor.com/api/projects/status/78i0q81h6qo9qn1p?svg=true)](https://ci.appveyor.com/project/Aerijo/tree-sitter-biber)
+
+
 Tree sitter parser for `.bib` files using `biber` syntax. This is subtly different to the original `bibtex` syntax, but largely similar.
 
 The main differences are how comments are handled. For `bibtex`, anything outside an `@` entry or command is a proper comment. In `biber`, this is also a comment but is considered "junk" (and warns you appropriately in the log file). Instead, `biber` requires `%` to consider a line a proper comment.
