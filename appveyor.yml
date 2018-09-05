@@ -1,0 +1,16 @@
+image: Visual Studio 2015
+version: "{build}"
+build: off
+skip_tags: true
+
+environment:
+  nodejs_version: "8"
+
+platform:
+  - x86
+  - x64
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
+  - npm i
