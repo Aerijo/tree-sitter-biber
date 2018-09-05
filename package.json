@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-biber",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Tree sitter grammar for biber",
   "main": "index.js",
   "repository": "https://github.com/Aerijo/tree-sitter-biber",
@@ -18,8 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "nan": "^2.11.0",
-    "prebuild-install": "^5.0.0",
-    "travis": "^0.1.1"
+    "prebuild-install": "^5.0.0"
   },
   "devDependencies": {
     "prebuild": "^7.6.1",
