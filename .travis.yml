@@ -2,7 +2,6 @@ language: node_js
 sudo: false
 node_js:
 - node
-
 matrix:
   include:
   - os: osx
@@ -12,7 +11,13 @@ matrix:
   - os: linux
     env: CXX=clang-3.6
     compiler: clang-3.6
-
+addons:
+  apt:
+    sources:
+    - llvm-toolchain-precise-3.6
+    - ubuntu-toolchain-r-test
+    packages:
+    - clang-3.6
 deploy:
   provider: script
   script: npm run pre-build && npm run pre-build:upload -u ${PREBUILD_UPLOAD}
@@ -20,3 +25,6 @@ deploy:
     secure: T8tIxptf3FpwTyy2SSaBP3VFEAnJjfzD9B81UW62a/ZOM10f5w8IX9VmYfWvQB16q3ezlzHj75EYELkZNTbzlETCQbvdqqIlrTyPAwpFk8MlQw9GxZe/lcXvkboJf4eZCYMnwd3vkuWjGMkMX88l2YLvgnv8V490U87zhGw+2qnxUPNcXS+2Ncbu9Q2POLoWMQ1PBJw7qpYSvu2io6LjiBJwSzIxzn73nCu6O9uQGQNiq7UQECer6oImr8tJD6Bxa58bEbJrHWESzW6zju12GLnxFg5192j1iez1ZfT9gCrYwPntdKvzrge1jqdVRyWx9StdKTWJob/zChtGQMBbQgvOfD3/QTaRCnFWtVaHq/C/Jr87UqNrINCy8NGMUu+4B4qtBm+aAql01O1rvUJhgkqhIuq1ol+JeEnxLqBkxK002Fro+7/E+2o5oHAE/Iu1kIt8X8s1fEXXXWz9YhID9Xyu91YuOEO6sUi4UdZxr4XP4PmkYid+LjItfOT5e5g1dSbaRBsYvQQ7GGqSkcmydRhjZQCWK43sdUnPb3qJwiEjRiJMcCcc+FxVIZg0YmrVNMeXDlEvQcHli8kGg9ENwSjSF3H+VOYU4Y/g0UU5KQqW4iAZ0b9EZ2NRAgZIvHkH4QD+iVHLDWz9++Q1fvm4JVf2gLxa/hevW20ifP0C3e4=
   on:
     repo: Aerijo/tree-sitter-biber
+env:
+  global:
+    secure: F3C3OIyuqujeTuUM13JYMwr8ZoUWGP8SdFNB4YaFG1vmWeuP39bBwobgAd+NR1hWxwkPi7G9ON/QCXq18LPC/lSRIQoX3lVXsWtkFF6l2GOLSOWCvZ5n2Ku4zmMqoYFNpPU1mfC1ASBcvzD8wxWDbn1Q3f5v82Q6SqSb91fOfmEzgIyjjXN/7pkzF7cxowyXQGur6nh8ThNBdJsCebg11pM32vRcMD7sIf4N29242VHrA+BjUYd3y0cM89DrITx1ySym2nLVR5GC70xWhyBl5RaQq+qoC7YxpCZTO5dtxSXVQOz0YNGoc5nA5dao8SkoPyccsaaCuB5L13xFPC0ACwCOGkxnPrp4hQvTZGmVOCJM2H6IzJKJ4CcfPLLJ2wiJepN8BrcgAxe8p4rprs+LUhUuCv7Js04fkZD4katk4EkejDEadwUWGxI9MyVNcJpinf4P7tNubKfId6u6HNSfA5hqySVd41ST39GBmDbvW9t2MOwbtlyp2kQSIdtQGQM24WknghgyM+JeUKiPAnCHwFD4XUvWMgpd82atDjNu/OtvwxFkX+qZ+cG6P1tmmnmZob2ZQNtP9CWoUN2Yqop9uz1X/OUSeJ09jJvnyQGeuNHJnAxt7XKAivCsvyeZK6fz+0fvH9cguXJFSVufJ1dDhQ+3fzLisC1qW8GHNV4KI9I=
