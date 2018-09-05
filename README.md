@@ -7,7 +7,7 @@ Tree sitter parser for `.bib` files using `biber` syntax. This is subtly differe
 
 The main differences are how comments are handled. For `bibtex`, anything outside an `@` entry or command is a proper comment. In `biber`, this is also a comment but is considered "junk" (and warns you appropriately in the log file). Instead, `biber` requires `%` to consider a line a proper comment.
 
-Similarly, the comment command is also treated differently. In `bibtex`, the parsing of the command stops immediately after `@comment`. So `@comment{this is a comment}` is equivalent to `@comment this is a comment`, because neither senetences are considered inside a command or entry. In contrast, `biber` will grab the entire body, and throw an error if it doesn't exist. I.e., `@comment this is an error` will throw because `biber` is expecting an opening delimiter (brace or parenthesis).
+Similarly, the comment command is also treated differently. In `bibtex`, the parsing of the command stops immediately after `@comment`. So `@comment{this is a comment}` is equivalent to `@comment this is a comment`, because neither sentences are considered inside a command or entry. In contrast, `biber` will grab the entire body, and throw an error if it doesn't exist. I.e., `@comment this is an error` will throw because `biber` is expecting an opening delimiter (brace or parenthesis).
 
 Here's a scenario where this may be relevant in real life:
 ```

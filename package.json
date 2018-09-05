@@ -29,6 +29,7 @@
     "build": "tree-sitter generate && node-gyp build",
     "install": "prebuild-install || node-gyp rebuild",
     "pre-build": "prebuild --all --strip --verbose",
-    "pre-build:upload": "prebuild --upload-all"
+    "pre-build:upload": "prebuild --upload-all",
+    "test": "tree-sitter test && tree-sitter parse examples -q -t"
   }
 }
