@@ -1,7 +1,4 @@
 image: Visual Studio 2015
-version: "{build}"
-build: off
-skip_tags: true
 
 environment:
   NODEJS_VERSION: "8"
@@ -9,17 +6,23 @@ environment:
     secure: jxeNZt+6zbeotHubwm6t5umnhJ33uRCKYOoNz3F1MmzvOateq0rcfbC5HkTW1BRI
 
 platform:
-  - x86
   - x64
+  - x86
 
 install:
-  - ps: Install-Product node $env:NODEJS_VERSION $env:platform
-  - set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
-  - npm i
+  - ps: Install-Product node $env:NODEJS_VERSION $env:Platform
+  - node --version
+  - npm --version
+  - npm install
+
+test_script:
+  - npm run test-windows
+
+build: off
 
 branches:
   only:
     - master
     - /^v.*$/
 
-deploy_script: IF "%APPVEYOR_REPO_TAG%" == "true" (npm run prebuild && npm run prebuild:upload -u %PREBUILD_UPLOAD%)
+deploy_script: IF "%APPVEYOR_REPO_TAG%" == "true" (npm run pre-build && npm run pre-build:upload -u %PREBUILD_UPLOAD%)
