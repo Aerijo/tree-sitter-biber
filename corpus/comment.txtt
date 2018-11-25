@@ -35,8 +35,8 @@ Command
 ---
 
 (program
-  (comment_command)
-  (comment_command)
+  (comment_command (name))
+  (comment_command (name))
 )
 
 ===============
@@ -49,8 +49,8 @@ Empty command
 ---
 
 (program
-  (comment_command)
-  (comment_command)
+  (comment_command (name))
+  (comment_command (name))
 )
 
 
@@ -66,8 +66,8 @@ Command with nested braces
 ---
 
 (program
-  (comment_command)
-  (comment_command)
-  (comment_command)
-  (comment_command)
+  (comment_command (name))
+  (comment_command (name))
+  (comment_command (name))
+  (comment_command (name))
 )

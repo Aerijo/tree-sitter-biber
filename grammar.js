@@ -7,7 +7,7 @@ function ignoreCase(str) {
   );
 }
 
-/*
+/**
   Adapted from the language description given here https://github.com/ambs/Text-BibTeX/blob/master/btparse/doc/bt_language.pod
 
   - name is a catch-all token used for entry types, citation keys, field names, and macro names;
@@ -31,9 +31,10 @@ function ignoreCase(str) {
 module.exports = grammar({
   name: "biber",
 
-  extras: $ => [/[\s\n\t]/, $.comment],
+  extras: $ => [/[\s\n\t\r]/, $.comment],
 
   rules: {
+
     program: $ => repeat(choice(
       $._command_or_entry,
       $.comment,
@@ -41,7 +42,8 @@ module.exports = grammar({
     )),
 
     comment: $ => token(seq('%', /.*/)),
-    junk: $ => /[^%@\s\n\t][^%@]*/, // biber junk == bibtex comment
+
+    junk: $ => /[^%@\s\n\t\r][^%@]*/, // biber junk == bibtex comment
 
     _command_or_entry: $ => choice(
       $.comment_command,
@@ -52,17 +54,17 @@ module.exports = grammar({
       $.entry
     ),
 
-    comment_command: $ => seq('@', ignoreCase("comment"), choice( // contents is considered a string
+    comment_command: $ => seq('@', alias(ignoreCase("comment"), $.name), choice( // contents is considered a string
       seq('{', repeat($._brace_balanced), '}'), // only {} need to be balanced
       seq('(', repeat($._paren_balanced), ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
     )),
 
-    string_command: $ => seq('@', ignoreCase("string"), choice(
+    string_command: $ => seq('@', alias(ignoreCase("string"), $.name), choice(
       seq('{', optional(seq($.identifier, '=', $.value)), '}'),
       seq('(', optional(seq($.identifier, '=', $.value)), ')')
     )),
 
-    preamble_command: $ => seq('@', ignoreCase("preamble"), choice(
+    preamble_command: $ => seq('@', alias(ignoreCase("preamble"), $.name), choice(
       seq('{', $.value, '}'), // contents are not optional
       seq('(', $.value, ')')
     )),
@@ -94,15 +96,16 @@ module.exports = grammar({
 
     token: $ => choice(
       $.string, // named as such by the source code
-      $.nonnegative_integer,
+      $.integer,
       $.identifier // also known as NAME / basically same, just cannot start with digit
     ),
 
-    nonnegative_integer: $ => /[0-9]+/,
+    integer: $ => /[0-9]+/,
 
     string: $ => choice(
       seq("{", repeat($._brace_balanced), '}'),
-      seq('"', repeat($._quote_balanced), '"')
+      seq('"', repeat($._quote_balanced), '"'),
+      seq('\'', repeat($._quote_balanced), '\'')
     ),
 
     _brace_balanced: $ => choice(

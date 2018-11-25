@@ -6,4 +6,4 @@ Empty
 
 ---
 
-(program (preamble_command (value (token (MISSING)))))
+(program (preamble_command (name) (value (token (MISSING)))))

@@ -39,7 +39,7 @@
     },
     "junk": {
       "type": "PATTERN",
-      "value": "[^%@\\s\\n\\t][^%@]*"
+      "value": "[^%@\\s\\n\\t\\r][^%@]*"
     },
     "_command_or_entry": {
       "type": "CHOICE",
@@ -70,8 +70,13 @@
           "value": "@"
         },
         {
-          "type": "PATTERN",
-          "value": "[cC][oO][mM][mM][eE][nN][tT]"
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][mM][mM][eE][nN][tT]"
+          },
+          "named": true,
+          "value": "name"
         },
         {
           "type": "CHOICE",
@@ -128,8 +133,13 @@
           "value": "@"
         },
         {
-          "type": "PATTERN",
-          "value": "[sS][tT][rR][iI][nN][gG]"
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][tT][rR][iI][nN][gG]"
+          },
+          "named": true,
+          "value": "name"
         },
         {
           "type": "CHOICE",
@@ -222,8 +232,13 @@
           "value": "@"
         },
         {
-          "type": "PATTERN",
-          "value": "[pP][rR][eE][aA][mM][bB][lL][eE]"
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][rR][eE][aA][mM][bB][lL][eE]"
+          },
+          "named": true,
+          "value": "name"
         },
         {
           "type": "CHOICE",
@@ -452,7 +467,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "nonnegative_integer"
+          "name": "integer"
         },
         {
           "type": "SYMBOL",
@@ -460,7 +475,7 @@
         }
       ]
     },
-    "nonnegative_integer": {
+    "integer": {
       "type": "PATTERN",
       "value": "[0-9]+"
     },
@@ -504,6 +519,26 @@
             {
               "type": "STRING",
               "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_quote_balanced"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "'"
             }
           ]
         }
@@ -612,7 +647,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "[\\s\\n\\t]"
+      "value": "[\\s\\n\\t\\r]"
     },
     {
       "type": "SYMBOL",

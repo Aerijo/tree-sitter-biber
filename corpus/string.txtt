@@ -6,7 +6,7 @@ Empty
 
 ---
 
-(program (string_command))
+(program (string_command (name)))
 
 ===============
 With number
@@ -16,7 +16,7 @@ With number
 
 ---
 
-(program (string_command (identifier) (value (token (nonnegative_integer)))))
+(program (string_command (name) (identifier) (value (token (integer)))))
 
 ===============
 Lot of strings
@@ -29,7 +29,7 @@ Lot of strings
 ---
 
 (program
-  (string_command (identifier) (value (token (string))))
-  (string_command (identifier) (value (token (string))))
-  (string_command (identifier) (value (token (string))))
+  (string_command (name) (identifier) (value (token (string))))
+  (string_command (name) (identifier) (value (token (string))))
+  (string_command (name) (identifier) (value (token (string))))
 )

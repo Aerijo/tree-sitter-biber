@@ -20,6 +20,6 @@ Concatenated field
         (token
           (identifier))
         (token
-          (nonnegative_integer))
+          (integer))
         (token
           (string))))))
