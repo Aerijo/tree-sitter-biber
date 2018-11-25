@@ -26,6 +26,19 @@ sign to indicate comment)
 (program (junk))
 
 ===============
+Junk with command on line
+===============
+
+hello world
+this is all considered
+junk (because no percent @foo{key}
+sign to indicate comment)
+
+---
+
+(program (junk) (entry (name) (key)) (junk))
+
+===============
 Command
 ===============
 

@@ -43,7 +43,7 @@ module.exports = grammar({
 
     comment: $ => token(seq('%', /.*/)),
 
-    junk: $ => /[^%@\s\n\t\r][^%@]*/, // biber junk == bibtex comment
+    junk: $ => seq(/[^%@\s\n\t\r]/, repeat(/[^%@\n]+\n/), optional(/[^%@\n]+/)), // biber junk == bibtex comment
 
     _command_or_entry: $ => choice(
       $.comment_command,

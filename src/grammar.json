@@ -38,8 +38,32 @@
       }
     },
     "junk": {
-      "type": "PATTERN",
-      "value": "[^%@\\s\\n\\t\\r][^%@]*"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[^%@\\s\\n\\t\\r]"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^%@\\n]+\\n"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^%@\\n]+"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "_command_or_entry": {
       "type": "CHOICE",
