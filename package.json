@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-biber",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "Tree sitter grammar for biber",
   "main": "index.js",
   "repository": "https://github.com/Aerijo/tree-sitter-biber",
