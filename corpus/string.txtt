@@ -16,7 +16,7 @@ With number
 
 ---
 
-(program (string_command (name) (identifier) (value (token (integer)))))
+(program (string_command (name) (identifier) (value (integer))))
 
 ===============
 Lot of strings
@@ -29,7 +29,7 @@ Lot of strings
 ---
 
 (program
-  (string_command (name) (identifier) (value (token (string))))
-  (string_command (name) (identifier) (value (token (string))))
-  (string_command (name) (identifier) (value (token (string))))
+  (string_command (name) (identifier) (value (string (text))))
+  (string_command (name) (identifier) (value (string (text))))
+  (string_command (name) (identifier) (value (string (text))))
 )

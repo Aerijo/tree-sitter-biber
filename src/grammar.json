@@ -113,11 +113,21 @@
                   "value": "{"
                 },
                 {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_brace_balanced"
-                  }
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "text_brace_balanced"
+                      },
+                      "named": true,
+                      "value": "comment"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "STRING",
@@ -133,11 +143,21 @@
                   "value": "("
                 },
                 {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_paren_balanced"
-                  }
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "text_paren_balanced"
+                      },
+                      "named": true,
+                      "value": "comment"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "STRING",
@@ -462,7 +482,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "token"
+          "name": "_token"
         },
         {
           "type": "REPEAT",
@@ -475,14 +495,14 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "token"
+                "name": "_token"
               }
             ]
           }
         }
       ]
     },
-    "token": {
+    "_token": {
       "type": "CHOICE",
       "members": [
         {
@@ -514,11 +534,21 @@
               "value": "{"
             },
             {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_brace_balanced"
-              }
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "text_brace_balanced"
+                  },
+                  "named": true,
+                  "value": "text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
@@ -534,11 +564,21 @@
               "value": "\""
             },
             {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_quote_balanced"
-              }
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "text_quote_balanced"
+                  },
+                  "named": true,
+                  "value": "text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
@@ -554,11 +594,21 @@
               "value": "'"
             },
             {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_quote_balanced"
-              }
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "text_quote_balanced"
+                  },
+                  "named": true,
+                  "value": "text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
@@ -567,6 +617,27 @@
           ]
         }
       ]
+    },
+    "text_brace_balanced": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_brace_balanced"
+      }
+    },
+    "text_quote_balanced": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_quote_balanced"
+      }
+    },
+    "text_paren_balanced": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_paren_balanced"
+      }
     },
     "_brace_balanced": {
       "type": "CHOICE",

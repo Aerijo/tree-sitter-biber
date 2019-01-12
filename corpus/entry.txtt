@@ -71,12 +71,12 @@ With commented field
     (key)
     (field
       (identifier)
-      (value (token (string)))
+      (value (string (text)))
     )
     (comment)
     (field
       (identifier)
-      (value (token (string)))
+      (value (string (text)))
     )
   )
 )
@@ -101,15 +101,15 @@ With commented field value
     (field
       (identifier)
       (comment)
-      (value (token (identifier)))
+      (value (identifier))
     )
     (field
       (identifier)
-      (value (token (integer)))
+      (value (integer))
     )
     (field
       (identifier)
-      (value (token (string)))
+      (value (string (text)))
     )
   )
 )
@@ -130,7 +130,7 @@ With percent sign in string field
     (key)
     (field
       (identifier)
-      (value (token (string)))
+      (value (string (text)))
     )
   )
 )
@@ -151,7 +151,7 @@ Empty entry type
     (key)
     (field
       (identifier)
-      (value (token (string)))
+      (value (string (text)))
     )
   )
 )

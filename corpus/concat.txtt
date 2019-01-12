@@ -15,11 +15,7 @@ Concatenated field
     (field
       (identifier)
       (value
-        (token
-          (string))
-        (token
-          (identifier))
-        (token
-          (integer))
-        (token
-          (string))))))
+        (string (text))
+        (identifier)
+        (integer)
+        (string (text))))))
