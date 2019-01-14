@@ -55,8 +55,8 @@ module.exports = grammar({
     ),
 
     comment_command: $ => seq('@', alias(ignoreCase("comment"), $.name), choice( // contents is considered a string
-      seq('{', repeat($._brace_balanced), '}'), // only {} need to be balanced
-      seq('(', repeat($._paren_balanced), ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
+      seq('{', optional(alias($.text_brace_balanced, $.comment)), '}'), // only {} need to be balanced
+      seq('(', optional(alias($.text_paren_balanced, $.comment)), ')') // () must be balanced, and tecnically {} too. But that's difficult / impossible to do, so we just make sure () is balanced
     )),
 
     string_command: $ => seq('@', alias(ignoreCase("string"), $.name), choice(
@@ -92,9 +92,9 @@ module.exports = grammar({
       return token(seq(first, repeat(later)));
     },
 
-    value: $ => seq($.token, repeat(seq('#', $.token))),
+    value: $ => seq($._token, repeat(seq('#', $._token))),
 
-    token: $ => choice(
+    _token: $ => choice(
       $.string, // named as such by the source code
       $.integer,
       $.identifier // also known as NAME / basically same, just cannot start with digit
@@ -103,10 +103,16 @@ module.exports = grammar({
     integer: $ => /[0-9]+/,
 
     string: $ => choice(
-      seq("{", repeat($._brace_balanced), '}'),
-      seq('"', repeat($._quote_balanced), '"'),
-      seq('\'', repeat($._quote_balanced), '\'')
+      seq("{", optional(alias($.text_brace_balanced, $.text)), '}'),
+      seq('"', optional(alias($.text_quote_balanced, $.text)), '"'),
+      seq('\'', optional(alias($.text_quote_balanced, $.text)), '\'')
     ),
+
+    text_brace_balanced: $ => repeat1($._brace_balanced),
+
+    text_quote_balanced: $ => repeat1($._quote_balanced),
+
+    text_paren_balanced: $ => repeat1($._paren_balanced),
 
     _brace_balanced: $ => choice(
       seq('{', repeat($._brace_balanced), '}'),
