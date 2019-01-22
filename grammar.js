@@ -43,6 +43,7 @@ module.exports = grammar({
 
     comment: $ => token(seq('%', /.*/)),
 
+    // TODO: Fix split in two when no trailing newline
     junk: $ => seq(/[^%@\s\n\t\r]/, repeat(/[^%@\n]+\n/), optional(/[^%@\n]+/)), // biber junk == bibtex comment
 
     _command_or_entry: $ => choice(
