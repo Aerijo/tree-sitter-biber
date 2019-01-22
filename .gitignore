@@ -1,7 +1,3 @@
 node_modules
 build
 *.log
-src/tree_sitter
-src/binding.cc
-src/grammar.json
-src/parser.c
