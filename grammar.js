@@ -10,6 +10,9 @@ function ignoreCase(str) {
 /**
   Adapted from the language description given here https://github.com/ambs/Text-BibTeX/blob/master/btparse/doc/bt_language.pod
 
+  Honestly though, the whole thing is a mess. The docs say one thing, the parser allows another. There's not even a mention of
+  unicode, but it will work fine if using a unicode supporting engine.
+
   - name is a catch-all token used for entry types, citation keys, field names, and macro names;
   - () only string delimiters in @comment.
   - " inside of strings are ignored
