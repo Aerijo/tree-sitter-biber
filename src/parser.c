@@ -28,7 +28,7 @@ enum {
   anon_sym_EQ = 12,
   aux_sym_SLASH_LBRACKpP_RBRACK_LBRACKrR_RBRACK_LBRACKeE_RBRACK_LBRACKaA_RBRACK_LBRACKmM_RBRACK_LBRACKbB_RBRACK_LBRACKlL_RBRACK_LBRACKeE_RBRACK_SLASH = 13,
   anon_sym_COMMA = 14,
-  aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH = 15,
+  aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH = 15,
   sym_identifier = 16,
   anon_sym_POUND = 17,
   sym_integer = 18,
@@ -83,7 +83,7 @@ static const char *ts_symbol_names[] = {
   [anon_sym_EQ] = "=",
   [aux_sym_SLASH_LBRACKpP_RBRACK_LBRACKrR_RBRACK_LBRACKeE_RBRACK_LBRACKaA_RBRACK_LBRACKmM_RBRACK_LBRACKbB_RBRACK_LBRACKlL_RBRACK_LBRACKeE_RBRACK_SLASH] = "name",
   [anon_sym_COMMA] = ",",
-  [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = "/[^\\\"\\#%'\\(\\)\\,\\=\\{\\}@\\\\\\~\\s\\t\\n]+/",
+  [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = "/[^\\\"\\#%'\\(\\)\\,\\=\\{\\}\\\\\\~\\s\\t\\n]+/",
   [sym_identifier] = "identifier",
   [anon_sym_POUND] = "#",
   [sym_integer] = "integer",
@@ -183,7 +183,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = false,
   },
-  [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = {
+  [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = {
     .visible = false,
     .named = false,
   },
@@ -505,7 +505,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -513,7 +512,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 21:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'O' ||
           lookahead == 'o')
         ADVANCE(22);
@@ -528,7 +527,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -536,7 +534,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 22:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'M' ||
           lookahead == 'm')
         ADVANCE(23);
@@ -551,7 +549,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -559,7 +556,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 23:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'M' ||
           lookahead == 'm')
         ADVANCE(24);
@@ -574,7 +571,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -582,7 +578,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 24:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'E' ||
           lookahead == 'e')
         ADVANCE(25);
@@ -597,7 +593,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -605,7 +600,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 25:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'N' ||
           lookahead == 'n')
         ADVANCE(26);
@@ -620,7 +615,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -628,7 +622,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 26:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'T' ||
           lookahead == 't')
         ADVANCE(27);
@@ -643,7 +637,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -663,7 +656,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -671,7 +663,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 28:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead != 0 &&
           lookahead != '\t' &&
           lookahead != '\n' &&
@@ -683,7 +675,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -691,7 +682,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 29:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'R' ||
           lookahead == 'r')
         ADVANCE(30);
@@ -706,7 +697,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -714,7 +704,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 30:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'E' ||
           lookahead == 'e')
         ADVANCE(31);
@@ -729,7 +719,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -737,7 +726,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 31:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'A' ||
           lookahead == 'a')
         ADVANCE(32);
@@ -752,8 +741,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
-          lookahead != 'A' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -761,7 +748,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 32:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'M' ||
           lookahead == 'm')
         ADVANCE(33);
@@ -776,7 +763,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -784,7 +770,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 33:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'B' ||
           lookahead == 'b')
         ADVANCE(34);
@@ -799,7 +785,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -807,7 +792,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 34:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'L' ||
           lookahead == 'l')
         ADVANCE(35);
@@ -822,7 +807,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -830,7 +814,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 35:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'E' ||
           lookahead == 'e')
         ADVANCE(36);
@@ -845,7 +829,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -865,7 +848,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -873,7 +855,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 37:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'T' ||
           lookahead == 't')
         ADVANCE(38);
@@ -888,7 +870,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -896,7 +877,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 38:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'R' ||
           lookahead == 'r')
         ADVANCE(39);
@@ -911,7 +892,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -919,7 +899,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 39:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'I' ||
           lookahead == 'i')
         ADVANCE(40);
@@ -934,7 +914,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -942,7 +921,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 40:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'N' ||
           lookahead == 'n')
         ADVANCE(41);
@@ -957,7 +936,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -965,7 +943,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ADVANCE(28);
       END_STATE();
     case 41:
-      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
+      ACCEPT_TOKEN(aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH);
       if (lookahead == 'G' ||
           lookahead == 'g')
         ADVANCE(42);
@@ -980,7 +958,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -1000,7 +977,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -1140,7 +1116,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != ',' &&
           (lookahead < '0' || lookahead > '9') &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -1160,7 +1135,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -1184,7 +1158,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != ',' &&
           (lookahead < '0' || lookahead > '9') &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -1213,7 +1186,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '}' &&
           lookahead != '~')
@@ -1238,7 +1210,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\'' || lookahead > ')') &&
           lookahead != ',' &&
           lookahead != '=' &&
-          lookahead != '@' &&
           lookahead != '\\' &&
           lookahead != '{' &&
           lookahead != '}' &&
@@ -1557,7 +1528,7 @@ static uint16_t ts_parse_table[STATE_COUNT][SYMBOL_COUNT] = {
     [aux_sym_SLASH_LBRACKcC_RBRACK_LBRACKoO_RBRACK_LBRACKmM_RBRACK_LBRACKmM_RBRACK_LBRACKeE_RBRACK_LBRACKnN_RBRACK_LBRACKtT_RBRACK_SLASH] = ACTIONS(27),
     [aux_sym_SLASH_LBRACKsS_RBRACK_LBRACKtT_RBRACK_LBRACKrR_RBRACK_LBRACKiI_RBRACK_LBRACKnN_RBRACK_LBRACKgG_RBRACK_SLASH] = ACTIONS(29),
     [aux_sym_SLASH_LBRACKpP_RBRACK_LBRACKrR_RBRACK_LBRACKeE_RBRACK_LBRACKaA_RBRACK_LBRACKmM_RBRACK_LBRACKbB_RBRACK_LBRACKlL_RBRACK_LBRACKeE_RBRACK_SLASH] = ACTIONS(31),
-    [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = ACTIONS(33),
+    [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = ACTIONS(33),
   },
   [4] = {
     [ts_builtin_sym_end] = ACTIONS(35),
@@ -1697,12 +1668,12 @@ static uint16_t ts_parse_table[STATE_COUNT][SYMBOL_COUNT] = {
   [22] = {
     [sym_key] = STATE(42),
     [sym_comment] = ACTIONS(25),
-    [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = ACTIONS(123),
+    [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = ACTIONS(123),
   },
   [23] = {
     [sym_key] = STATE(43),
     [sym_comment] = ACTIONS(25),
-    [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_AT_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = ACTIONS(123),
+    [aux_sym_SLASH_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_POUND_PERCENT_SQUOTE_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_COMMA_BSLASH_EQ_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_TILDE_BSLASHs_BSLASHt_BSLASHn_RBRACK_PLUS_SLASH] = ACTIONS(123),
   },
   [24] = {
     [sym__brace_balanced] = STATE(45),

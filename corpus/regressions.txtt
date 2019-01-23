@@ -1,0 +1,41 @@
+===============
+@ in keys
+===============
+
+@article{f@oo,}
+
+---
+
+(program (entry (name) (key)))
+
+===============
+@ in identifiers
+===============
+
+@article{foo,
+au@thor="me"
+}
+
+---
+
+(program
+  (entry (name) (key)
+    (field (identifier) (value (string (text))))))
+
+===============
+@ in string macros
+===============
+
+@string{!@&*="this"}
+
+@article{foo,
+au@thor=!@&*
+}
+
+---
+
+(program
+  (string_command (name)
+    (identifier) (value (string (text))))
+  (entry (name) (key)
+    (field (identifier) (value (identifier)))))

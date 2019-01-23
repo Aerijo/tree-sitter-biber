@@ -80,16 +80,16 @@ module.exports = grammar({
       seq('(', $.key, repeat(seq(',', $.field)), optional(','), ')')
     )),
 
-    key:  $ => /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]+/, // empty keys throw errors (as opposed to bibtex). Also more restricted range.
-    name: $ => /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]+/, // all of unicode seems to be supported (when using xelatex or equiv. unicode support)
+    key:  $ => /[^\"\#%'\(\)\,\=\{\}\\\~\s\t\n]+/, // empty keys throw errors (as opposed to bibtex). Also more restricted range.
+    name: $ => /[^\"\#%'\(\)\,\=\{\}\\\~\s\t\n]+/, // all of unicode seems to be supported (when using xelatex or equiv. unicode support)
 
     field: $ => seq($.identifier, '=', $.value),
 
     // fields: $ => prec.left(1, seq($.field, repeat(",", $.field), optional(","))),
 
     identifier: $ => { // name, but cannot start with digit
-      const first = /[^0-9\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]/;
-      const later = /[^\"\#%'\(\)\,\=\{\}@\\\~\s\t\n]/;
+      const first = /[^0-9\"\#%'\(\)\,\=\{\}\\\~\s\t\n]/;
+      const later = /[^\"\#%'\(\)\,\=\{\}\\\~\s\t\n]/;
       return token(seq(first, repeat(later)));
     },
 
