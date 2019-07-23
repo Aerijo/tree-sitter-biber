@@ -17,12 +17,12 @@
   "author": "Benjamin Gray",
   "license": "MIT",
   "dependencies": {
-    "nan": "^2.11.0",
-    "prebuild-install": "^5.0.0"
+    "nan": "^2.14.0",
+    "prebuild-install": "^5.3.0"
   },
   "devDependencies": {
-    "prebuild": "^7.6.1",
-    "tree-sitter-cli": "^0.13.5"
+    "prebuild": "^9.0.1",
+    "tree-sitter-cli": "^0.15.5"
   },
   "scripts": {
     "build": "tree-sitter generate && node-gyp build",

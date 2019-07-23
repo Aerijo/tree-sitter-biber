@@ -1,28 +1,4 @@
 ===============
-Empty
-===============
-
-NOTE: Biber will throw an error for a missing key.
-Also, the tests should really be
-(entry (name) (MISSING)), but I can't work out why
-a 0-length match for key is being allowed.
-
-@misc{}
-@misc{,}
-@misc()
-@misc(,)
-
----
-
-(program
-  (junk)
-  (entry (name) (key (MISSING)))
-  (entry (name) (key (MISSING)))
-  (entry (name) (key (MISSING)))
-  (entry (name) (key (MISSING)))
-)
-
-===============
 Only key
 ===============
 
@@ -127,27 +103,6 @@ With percent sign in string field
 (program
   (entry
     (name)
-    (key)
-    (field
-      (identifier)
-      (value (string (text)))
-    )
-  )
-)
-
-===============
-Empty entry type
-===============
-
-@{key,
-  author="me % not comment"
-}
-
----
-
-(program
-  (entry
-    (name (MISSING))
     (key)
     (field
       (identifier)

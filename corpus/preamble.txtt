@@ -1,9 +1,0 @@
-===============
-Empty
-===============
-
-@preamble{}
-
----
-
-(program (preamble_command (name) (value (MISSING))))
