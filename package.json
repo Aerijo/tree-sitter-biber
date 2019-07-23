@@ -25,6 +25,7 @@
     "tree-sitter-cli": "^0.15.5"
   },
   "scripts": {
+    "postversion": "git push --follow-tags",
     "build": "tree-sitter generate && node-gyp build",
     "install": "prebuild-install || node-gyp rebuild",
     "pre-build": "prebuild --all --strip --verbose",
